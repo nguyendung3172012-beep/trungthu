@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)file:///C:/Users/vietcuong383/trung%20thu.html -->
+<html lang="vi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Trung Thu Vui Vẻ</title>
+  <style>
+    body { margin:0; background:#000; overflow:hidden; }
+    canvas { display:block; }
+
+    /* Mặt trăng */
+    .moon {
+      position: absolute;
+      top: 40px; right: 80px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #f8e08e 70%);
+      box-shadow: 0 0 40px rgba(255,255,200,0.9);
+    }
+
+    /* Thành phố, nhà cao tầng cao đến giữa màn hình */
+    .city {
+      position:absolute;
+      bottom:0; left:0; width:100%; height:50%;
+      background:#111;
+      display:flex;
+      align-items:flex-end;
+    }
+    .building {
+      position:relative;
+      margin:0 4px;
+      background:#000;
+      flex:1;
+    }
+    .window {
+      width:8px; height:8px;
+      margin:2px;
+      background:yellow;
+      display:inline-block;
+      opacity:0.8;
+    }
+
+    /* Đèn lồng */
+    .lantern {
+      position:absolute;
+      width:36px; height:54px;
+      border-radius:18px;
+      background: linear-gradient(180deg,#ff7a7a,#ffd4d4);
+      box-shadow: 0 0 12px rgba(255,200,150,0.7);
+      animation: floatUpSway linear forwards;
+    }
+    .lantern::after {
+      content:''; position:absolute;
+      bottom:-10px; left:50%; transform:translateX(-50%);
+      width:4px; height:12px; border-radius:2px; background:#333;
+    }
+
+    @keyframes floatUpSway {
+      0%   { transform: translate(0,0) rotate(-3deg); opacity:1; }
+      25%  { transform: translate(8px,-30vh) rotate(3deg); opacity:0.9; }
+      50%  { transform: translate(-8px,-60vh) rotate(-3deg); opacity:0.7; }
+      75%  { transform: translate(6px,-90vh) rotate(3deg); opacity:0.5; }
+      100% { transform: translate(0,-120vh) rotate(-3deg); opacity:0; }
+    }
+
+    .controls {
+      position:absolute; top:10px; left:10px;
+      color:white; font-size:14px;
+      background:rgba(0,0,0,0.5); padding:6px 12px; border-radius:6px;
+      user-select:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="moon"></div>
+  <canvas id="canvas" width="1536" height="730"></canvas>
+  <div class="city" id="city"><div class="building" style="height: 230.065px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 285.542px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 150.656px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 154.247px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 341.781px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 301.821px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 330.74px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 288.924px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 222.911px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 178px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 274.877px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 340.146px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 251.433px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 278.339px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 168.503px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 164.455px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 320.371px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 348.846px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 283.324px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div><div class="building" style="height: 225.589px;"><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div></div></div>
+
+  <!-- Nhạc nền, link YouTube làm ví dụ -->
+  <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop=""></audio>
+  <div class="controls">Bấm <b>Space</b> để bật/tắt nhạc 🎶</div>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Vẽ chữ
+    const textCanvas = document.createElement("canvas");
+    const tctx = textCanvas.getContext("2d");
+    textCanvas.width = canvas.width;
+    textCanvas.height = canvas.height;
+    tctx.fillStyle="#fff";
+    tctx.font="bold 90px sans-serif";
+    tctx.textAlign="center";
+    tctx.fillText("TRUNG THU VUI VẺ", canvas.width/2, canvas.height/2);
+    let particles = [];
+    let imgData = tctx.getImageData(0,0,canvas.width,canvas.height);
+    for (let y=0; y<imgData.height; y+=6){
+      for (let x=0; x<imgData.width; x+=6){
+        let idx = (y*imgData.width + x)*4;
+        if (imgData.data[idx+3] > 128) {
+          particles.push({ x: x, y: y, ox: x, oy: y, vx:0, vy:0 });
+        }
+      }
+    }
+
+    // Pháo hoa
+    let rockets = [];
+    function launch(){
+      let rocketX = canvas.width/2 + (Math.random()*400 - 200);
+      let rocketY = canvas.height;
+      rockets.push({ x: rocketX, y: rocketY, vy: -10, stage: "fly", timer:0 });
+    }
+    function animate(){
+      ctx.fillStyle = "rgba(0,0,0,0.25)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      for (let i = rockets.length-1; i >= 0; i--) {
+        let r = rockets[i];
+        if (r.stage === "fly") {
+          ctx.fillStyle = "orange";
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, 3, 0, Math.PI*2);
+          ctx.fill();
+          r.y += r.vy;
+          if (r.y < canvas.height/2) {
+            r.stage = "explode";
+            particles.forEach(p => {
+              p.x = r.x; p.y = r.y;
+              p.vx = (p.ox - r.x) / 20;
+              p.vy = (p.oy - r.y) / 20;
+            });
+          }
+        } else if (r.stage === "explode") {
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            ctx.fillStyle = "hsl(" + (Math.random()*360) + ",100%,60%)";
+            ctx.fillRect(p.x, p.y, 2, 2);
+          });
+          r.timer++;
+          if (r.timer > 60) {
+            rockets.splice(i,1);
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    setInterval(launch, 4500);
+    animate();
+
+    // Đèn lồng
+    function createLantern(){
+      const lantern = document.createElement("div");
+      lantern.className = "lantern";
+      lantern.style.left = Math.random()*95 + "%";
+      lantern.style.bottom = "-70px";
+      let colors = ['#ff7a7a','#ffd166','#9ad0ff','#ff9af5','#ffa94d'];
+      let c = colors[Math.floor(Math.random()*colors.length)];
+      lantern.style.background = `linear-gradient(180deg,${c},#fff3)`;
+      lantern.style.animationDuration = (5 + Math.random()*3) + "s";
+      document.body.appendChild(lantern);
+      setTimeout(() => lantern.remove(), 10000);
+    }
+    setInterval(createLantern, 250);
+
+    // Thành phố, nhà cao tầng cao đến giữa màn hình
+    const city = document.getElementById("city");
+    for (let i = 0; i < 20; i++){
+      let b = document.createElement("div");
+      b.className = "building";
+      let h = (canvas.height / 2) * (0.4 + Math.random()*0.6); 
+      b.style.height = h + "px";
+      for (let y = 0; y < h; y += 12){
+        for (let x = 0; x < Math.floor(Math.random()*4)+2; x++){
+          if (Math.random() > 0.5) {
+            let w = document.createElement("div");
+            w.className = "window";
+            b.appendChild(w);
+          }
+        }
+      }
+      city.appendChild(b);
+    }
+
+    // Nhạc nền
+    const music = document.getElementById("music");
+    let playing = false;
+    window.addEventListener("keydown", e => {
+      if (e.code === "Space") {
+        if (!playing) {
+          music.play();
+          playing = true;
+        } else {
+          music.pause();
+          playing = false;
+        }
+      }
+    });
+
+    window.onresize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+  </script>
+
+
+<div class="lantern" style="left: 83.9641%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 5.73864s;"></div><div class="lantern" style="left: 3.69356%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.51155s;"></div><div class="lantern" style="left: 83.9%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.85291s;"></div><div class="lantern" style="left: 59.6617%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 5.06328s;"></div><div class="lantern" style="left: 81.7665%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 5.25257s;"></div><div class="lantern" style="left: 86.7191%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.54352s;"></div><div class="lantern" style="left: 63.1378%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 5.98042s;"></div><div class="lantern" style="left: 29.5919%; bottom: -70px; background: linear-gradient(rgb(255, 209, 102), rgba(255, 255, 255, 0.2)); animation-duration: 7.01639s;"></div><div class="lantern" style="left: 94.1108%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 6.88043s;"></div><div class="lantern" style="left: 53.1572%; bottom: -70px; background: linear-gradient(rgb(255, 209, 102), rgba(255, 255, 255, 0.2)); animation-duration: 5.27526s;"></div><div class="lantern" style="left: 27.6862%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 5.84065s;"></div><div class="lantern" style="left: 2.52187%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 5.2489s;"></div><div class="lantern" style="left: 42.2226%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 6.67561s;"></div><div class="lantern" style="left: 80.0841%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 6.41741s;"></div><div class="lantern" style="left: 26.4566%; bottom: -70px; background: linear-gradient(rgb(255, 209, 102), rgba(255, 255, 255, 0.2)); animation-duration: 6.92143s;"></div><div class="lantern" style="left: 37.0922%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.51183s;"></div><div class="lantern" style="left: 47.0484%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 5.16482s;"></div><div class="lantern" style="left: 75.8629%; bottom: -70px; background: linear-gradient(rgb(255, 209, 102), rgba(255, 255, 255, 0.2)); animation-duration: 5.01255s;"></div><div class="lantern" style="left: 54.1193%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 7.08961s;"></div><div class="lantern" style="left: 65.7116%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 7.62029s;"></div><div class="lantern" style="left: 2.88325%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.84578s;"></div><div class="lantern" style="left: 71.0566%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 7.14843s;"></div><div class="lantern" style="left: 25.4484%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 6.47186s;"></div><div class="lantern" style="left: 39.2989%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.14732s;"></div><div class="lantern" style="left: 48.6241%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 5.47852s;"></div><div class="lantern" style="left: 17.267%; bottom: -70px; background: linear-gradient(rgb(255, 209, 102), rgba(255, 255, 255, 0.2)); animation-duration: 6.05988s;"></div><div class="lantern" style="left: 34.9817%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 7.45696s;"></div><div class="lantern" style="left: 82.5199%; bottom: -70px; background: linear-gradient(rgb(255, 209, 102), rgba(255, 255, 255, 0.2)); animation-duration: 5.45756s;"></div><div class="lantern" style="left: 43.5029%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 5.37098s;"></div><div class="lantern" style="left: 71.0692%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 6.24484s;"></div><div class="lantern" style="left: 57.1637%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 6.75027s;"></div><div class="lantern" style="left: 6.76922%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 6.15873s;"></div><div class="lantern" style="left: 33.2475%; bottom: -70px; background: linear-gradient(rgb(154, 208, 255), rgba(255, 255, 255, 0.2)); animation-duration: 7.7534s;"></div><div class="lantern" style="left: 75.385%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.1774s;"></div><div class="lantern" style="left: 82.4786%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 6.55551s;"></div><div class="lantern" style="left: 34.585%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 7.47177s;"></div><div class="lantern" style="left: 16.0729%; bottom: -70px; background: linear-gradient(rgb(255, 122, 122), rgba(255, 255, 255, 0.2)); animation-duration: 5.99857s;"></div><div class="lantern" style="left: 8.34723%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 6.28835s;"></div><div class="lantern" style="left: 26.5406%; bottom: -70px; background: linear-gradient(rgb(255, 154, 245), rgba(255, 255, 255, 0.2)); animation-duration: 6.40376s;"></div><div class="lantern" style="left: 60.3551%; bottom: -70px; background: linear-gradient(rgb(255, 169, 77), rgba(255, 255, 255, 0.2)); animation-duration: 7.86238s;"></div></body></html>
